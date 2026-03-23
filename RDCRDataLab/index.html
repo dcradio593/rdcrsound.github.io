@@ -2,982 +2,659 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RDCR DataLab</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="/img_radio/Data Lab.jpg" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Estrategia de Impulsación · Zona Darío Castellanos</title>
     <style>
-        :root {
-            --primary-color: #1a365d;
-            --secondary-color: #2d6bc4;
-            --accent-color: #00a8cc;
-            --light-color: #e6f2ff;
-            --dark-color: #0d1b2a;
-            --gray-color: #8d99ae;
-            --text-color: #333;
-            --white: #ffffff;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
-            color: var(--text-color);
-            line-height: 1.6;
-            background-color: var(--white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #1e2b4f 0%, #2d3e6e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
         }
-        
         .container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
             width: 100%;
-            max-width: 1200px;
+            max-width: 480px;
+            padding: 16px;
+            transition: all 0.2s ease;
             margin: 0 auto;
-            padding: 0 20px;
         }
-        
-        /* Header */
-        header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
+        .header h2 {
+            color: #0b1a33;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+            text-align: center;
+            line-height: 1.3;
         }
-        
-        .header-container {
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            background: #f0f4fa;
+            padding: 4px;
+            border-radius: 40px;
+        }
+        .tab {
+            flex: 1;
+            padding: 8px 4px;
+            background: transparent;
+            border-radius: 32px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #2c3e50;
+            transition: all 0.2s;
+            text-align: center;
+            border: none;
+            white-space: nowrap;
+        }
+        .tab.active {
+            background: white;
+            color: #1e3c72;
+            box-shadow: 0 4px 10px rgba(0,30,60,0.12);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        h3 {
+            color: #0f2b45;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            border-left: 4px solid #3b6ea5;
+            padding-left: 12px;
+        }
+        h4 {
+            color: #1e3a5f;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.2px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        @media (min-width: 400px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: #4a5b6e;
+            margin-bottom: 3px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 10px;
+            border: 1.5px solid #dde3ea;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            transition: 0.15s;
+            background: white;
+            font-family: inherit;
+            -webkit-appearance: none;
+        }
+        input:focus, select:focus {
+            border-color: #2e5a9c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46,90,156,0.12);
+        }
+        .readonly-field {
+            background-color: #f4f7fb;
+            border-color: #d0dae8;
+            color: #0f2b45;
+            font-weight: 500;
+        }
+        .btn-send {
+            width: 100%;
+            background: #1d4e7c;
+            color: white;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.15s;
+            box-shadow: 0 6px 14px rgba(25,75,125,0.3);
+            margin-top: 16px;
+        }
+        .btn-send:hover {
+            background: #2368a5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(25,75,125,0.4);
+        }
+        .btn-send:disabled {
+            background: #9aaec2;
+            box-shadow: none;
+            transform: none;
+        }
+        .message-box {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 12px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.85rem;
+            animation: slideUp 0.2s;
+        }
+        .message-box.success {
+            background: #e0f2e9;
+            color: #0e6245;
+            border: 1px solid #b6e3d0;
+            display: block;
+        }
+        .message-box.error {
+            background: #fee9e7;
+            color: #a12b2b;
+            border: 1px solid #fbc5c2;
+            display: block;
+        }
+        .message-box.info {
+            background: #e1edfc;
+            color: #1b4c7c;
+            border: 1px solid #b9d4f0;
+            display: block;
+        }
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(5px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(8px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .result-box {
+            background: #f9fcff;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 14px;
+            border: 1px solid #e6edf6;
+            transition: all 0.2s cubic-bezier(0.2,0,0,1);
+            box-shadow: 0 2px 5px rgba(0,20,40,0.05);
+        }
+        .result-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -8px rgba(20,60,120,0.2);
+            border-color: #cbd9ec;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .result-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
+            padding: 5px 0;
+            border-bottom: 1px dashed #cbd6e4;
+            font-size: 0.85rem;
         }
-        
-        .back-btn-header {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.15);
-            color: var(--white);
-            border: none;
-            border-radius: 30px;
-            padding: 8px 16px 8px 12px;
-            font-size: 15px;
+        .result-item span:first-child {
             font-weight: 500;
-            cursor: pointer;
+            color: #2e4d73;
+        }
+        .result-item span:last-child {
+            font-weight: 700;
+            color: #1d6b41;
+            background: #e6f1eb;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .product-compact {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 8px;
-            transition: var(--transition);
-            z-index: 10;
-            text-decoration: none;
+            margin-bottom: 10px;
         }
-        
-        .back-btn-header:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-50%) translateX(-5px);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 5;
-        }
-        
-        .logo-icon {
-            background-color: var(--accent-color);
-            color: var(--white);
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 22px;
-        }
-        
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .logo-main {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .logo-sub {
-            font-size: 14px;
-            color: var(--light-color);
-            letter-spacing: 2px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 17px;
-            transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--accent-color);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            padding: 100px 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
+        .product-compact .product-label {
             font-weight: 600;
-            font-size: 18px;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #1e3a5f;
+            min-width: 55px;
+            font-size: 0.8rem;
         }
-        
-        .cta-button:hover {
-            background-color: #0088aa;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        .product-compact input {
+            flex: 1 1 80px;
+            min-width: 70px;
         }
-        
-        /* Sections */
-        .section-title {
+        .product-compact .readonly-field {
+            background: #eaf1fa;
+            flex: 0 1 70px;
+        }
+
+        .inline-metrics {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: #e9f0f8;
+            padding: 10px 12px;
+            border-radius: 16px;
+            margin-top: 8px;
+        }
+        .metric {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .metric span:first-child {
+            font-weight: 500;
+            color: #314e74;
+            font-size: 0.75rem;
+        }
+        .metric span:last-child {
+            font-weight: 700;
+            color: #0f3b5e;
+            background: white;
+            padding: 3px 10px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+
+        small {
+            color: #6b7f94;
+            font-size: 0.65rem;
+            display: block;
+            margin-top: 2px;
+        }
+        .footer {
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
+            margin-top: 18px;
+            color: #98aec6;
+            font-size: 0.7rem;
         }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        section:nth-child(even) {
-            background-color: var(--light-color);
-        }
-        
-        /* Análisis Section */
-        .analysis-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-icon {
-            background-color: var(--primary-color);
-            color: var(--white);
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-        }
-        
-        .card-content {
-            padding: 25px;
-        }
-        
-        .card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        /* Visualizaciones Section */
-        .visualization-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .visualization-img {
-            background-color: var(--secondary-color);
-            height: 300px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .visualization-img:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: translateX(-100%);
-        }
-        
-        .visualization-img:hover:before {
-            animation: shine 1.5s;
-        }
-        
-        @keyframes shine {
-            100% {
-                transform: translateX(100%);
-            }
-        }
-        
-        /* Proyectos Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        
-        .project-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-        
-        .project-img {
-            height: 200px;
-            background-color: var(--gray-color);
-            position: relative;
-        }
-        
-        .project-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        .project-content {
-            padding: 25px;
-        }
-        
-        .project-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        /* Medios Section */
-        .media-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .media-list {
-            list-style: none;
-        }
-        
-        .media-list li {
-            margin-bottom: 20px;
-            padding-left: 30px;
-            position: relative;
-        }
-        
-        .media-list li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 60px 0 30px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo .logo-main {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        
-        .footer-logo .logo-sub {
-            color: var(--gray-color);
-        }
-        
-        .footer-links h3, .footer-contact h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color);
-            padding-left: 5px;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray-color);
-            font-size: 14px;
-        }
-        
-        /* Botón flotante arriba */
-        .floating-btn-up {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            z-index: 1000;
-        }
-        
-        .floating-btn-up.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .floating-btn-up:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .floating-btn-up::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        .floating-btn-up:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
-        }
-        
-        .tooltip {
-            position: absolute;
-            right: 70px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        
-        .floating-btn-up:hover .tooltip {
-            opacity: 1;
-        }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .floating-btn-up {
-                right: 20px;
-                bottom: 20px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .back-btn-header {
-                padding: 6px 12px 6px 10px;
-                font-size: 14px;
-            }
-            
-            nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-color);
-                padding: 20px;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav.active {
-                display: block;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .floating-btn-up {
-                width: 55px;
-                height: 55px;
-                font-size: 20px;
-            }
-            
-            .header-container {
-                justify-content: center;
-            }
-            
-            .logo {
-                margin-left: 40px; /* Para evitar solapamiento con el botón de atrás */
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 70px 0;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .card, .project-card {
-                margin: 0 10px;
-            }
-            
-            .floating-btn-up {
-                right: 15px;
-                bottom: 15px;
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
-            }
-            
-            .tooltip {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-            
-            .back-btn-header {
-                padding: 5px 10px 5px 8px;
-                font-size: 13px;
-            }
-            
-            .logo-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-            }
-            
-            .logo-main {
-                font-size: 20px;
-            }
-            
-            .logo-sub {
-                font-size: 12px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .back-btn-header span {
-                display: none; /* Ocultar el texto "Atrás" en pantallas muy pequeñas */
-            }
-            
-            .back-btn-header {
-                padding: 8px;
-            }
+
+        @media (max-width: 360px) {
+            .container { padding: 12px; }
+            .tab { font-size: 0.7rem; }
+            .result-item span:last-child { padding: 2px 5px; }
+            .product-compact input { min-width: 60px; }
         }
     </style>
 </head>
 <body>
-    <!-- Header con botón atrás -->
-    <header>
-        <div class="container header-container">
-            <a href="https://rdcrsound.adcm.club/" class="back-btn-header" id="backBtnHeader">
-                <i class="fas fa-arrow-left"></i>
-                <span>Atrás</span>
-            </a>
-            
-            <div class="logo">
-                <div class="logo-icon">Au</div>
-                <div class="logo-text">
-                    <div class="logo-main">RDCR</div>
-                    <div class="logo-sub">DataLab</div>
-                </div>
-            </div>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav id="mainNav">
-                <ul>
-                    <li><a href="#analisis">Análisis</a></li>
-                    <li><a href="#visualizaciones">Visualizaciones</a></li>
-                    <li><a href="#proyectos">Proyectos</a></li>
-                    <li><a href="#medios">Data aplicada a medios</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="container">
+    <div class="header">
+        <h2>ESTRATEGIA DE IMPULSACIÓN<br>ZONA DARÍO CASTELLANOS</h2>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Transformamos datos en conocimiento accionable</h1>
-            <p>RDCR DataLab es un laboratorio especializado en análisis de datos, visualización avanzada y proyectos de ciencia de datos aplicados a diferentes industrias y medios.</p>
-            <a href="#proyectos" class="cta-button">Ver nuestros proyectos</a>
-        </div>
-    </section>
+    <div class="tabs">
+        <div class="tab active" onclick="cambiarPestana('registro')">REGISTRO</div>
+        <div class="tab" onclick="cambiarPestana('calculos')">CÁLCULOS</div>
+    </div>
 
-    <!-- Análisis Section -->
-    <section id="analisis">
-        <div class="container">
-            <div class="section-title">
-                <h2>Análisis</h2>
+    <!-- PESTAÑA REGISTRO SEMANAL -->
+    <div id="pestanaRegistro" class="tab-content active">
+        <h3>📋 Captura semanal</h3>
+        <div class="form-grid">
+            <div>
+                <label for="pdv">PDV *</label>
+                <select id="pdv" required></select>
             </div>
-            
-            <div class="analysis-cards">
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Análisis Predictivo</h3>
-                        <p>Utilizamos modelos avanzados de machine learning para predecir tendencias y comportamientos futuros, ayudando en la toma de decisiones estratégicas.</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Minería de Datos</h3>
-                        <p>Extraemos patrones y conocimiento valioso de grandes volúmenes de datos estructurados y no estructurados para descubrir insights ocultos.</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Análisis Exploratorio</h3>
-                        <p>Realizamos investigaciones exhaustivas de datos para entender su estructura, detectar anomalías y prepararlos para análisis más avanzados.</p>
-                    </div>
-                </div>
+            <div>
+                <label for="colaborador">Colaborador *</label>
+                <input type="text" id="colaborador" placeholder="Ej: JUAN PEREZ" required 
+                       oninput="this.value = this.value.toUpperCase()">
+                <small>mayúsculas</small>
+            </div>
+            <div>
+                <label for="codigo">Código *</label>
+                <input type="text" id="codigo" placeholder="0000132840" required>
+                <small>se agrega apóstrofe automático</small>
+            </div>
+            <div>
+                <label for="nombreProducto">Producto *</label>
+                <input type="text" id="nombreProducto" placeholder="ALQUA CEP NANO CARBON" required>
+            </div>
+            <div>
+                <label for="ventaSemanal">Venta semanal *</label>
+                <input type="number" id="ventaSemanal" placeholder="Ej: 250 (unidades/semana)" min="1" required>
+                <small>unidades vendidas en la semana</small>
             </div>
         </div>
-    </section>
+        <button class="btn-send" onclick="enviarRegistroPDV()" id="btnRegistro">
+            <span></span> GUARDAR REGISTRO SEMANAL
+        </button>
+    </div>
 
-    <!-- Visualizaciones Section -->
-    <section id="visualizaciones">
-        <div class="container">
-            <div class="section-title">
-                <h2>Visualizaciones</h2>
-            </div>
-            
-            <div class="visualization-container">
-                <div class="visualization-img">
-                    <div>
-                        <i class="fas fa-chart-pie" style="font-size: 48px; margin-bottom: 15px;"></i>
-                        <p>Visualizaciones interactivas y dashboards</p>
-                    </div>
-                </div>
-                
+    <!-- PESTAÑA CÁLCULOS -->
+    <div id="pestanaCalculos" class="tab-content">
+        <h3>📊 Proyecciones y cuotas</h3>
+
+        <!-- TRANSACCIONES -->
+        <div class="result-box">
+            <h4>📈 Transacciones últimos 3 meses</h4>
+            <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
                 <div>
-                    <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.8rem;">Transformamos datos complejos en visualizaciones claras</h3>
-                    <p>Creamos representaciones gráficas e interactivas que facilitan la comprensión de datos complejos, permitiendo identificar patrones y tendencias de manera intuitiva.</p>
-                    <p style="margin-top: 15px;">Nuestras herramientas incluyen dashboards en tiempo real, gráficos interactivos, mapas de calor y visualizaciones 3D adaptadas a las necesidades específicas de cada proyecto.</p>
+                    <label>PDV (filtro)</label>
+                    <select id="pdvCalculos"></select>
                 </div>
+                <div><label># Colaboradores</label><input type="number" id="numColaboradores" value="" min="1" placeholder="0"></div>
+                <div><label>Dic</label><input type="number" id="ventasDic" value="" placeholder="DIC"></div>
+                <div><label>Ene</label><input type="number" id="ventasEne" value="" placeholder="ENE"></div>
+                <div><label>Feb</label><input type="number" id="ventasFeb" value="" placeholder="FEB"></div>
+            </div>
+            <div class="result-grid">
+                <div class="result-item"><span>TOTAL</span><span id="totalTransacciones">0</span></div>
+                <div class="result-item"><span>PROMEDIO</span><span id="lineaBaseTransacciones">0</span></div>
+                <div class="result-item"><span>IMPULS. 30%</span><span id="impulsacionesEfectivas">0</span></div>
+                <div class="result-item"><span>IMP/COLAB</span><span id="impXColaborador">0</span></div>
             </div>
         </div>
-    </section>
 
-    <!-- Proyectos Section -->
-    <section id="proyectos">
-        <div class="container">
-            <div class="section-title">
-                <h2>Proyectos</h2>
+        <!-- PRODUCTO -->
+        <div class="result-box">
+            <h4>📦 Línea base producto</h4>
+            <div class="product-compact">
+                <span class="product-label">Nombre</span>
+                <input type="text" id="productoNombre" value="" placeholder="Producto objetivo">
             </div>
-            
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #4a6fa5;">
-                        <div class="project-tag">Análisis</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Predicción de demanda energética</h3>
-                        <p>Desarrollo de modelos predictivos para optimizar la distribución de energía en ciudades inteligentes, reduciendo costos en un 15%.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #166088;">
-                        <div class="project-tag">Visualización</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Dashboard de métricas financieras</h3>
-                        <p>Creación de un panel de control interactivo para el monitoreo en tiempo real de indicadores financieros y de riesgo.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #2d6bc4;">
-                        <div class="project-tag">Medios</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Análisis de audiencias digitales</h3>
-                        <p>Estudio del comportamiento de usuarios en plataformas digitales para optimizar estrategias de contenido y engagement.</p>
-                    </div>
-                </div>
+            <div class="product-compact" style="flex-wrap: wrap; gap: 5px;">
+                <span class="product-label">Ventas</span>
+                <input type="number" id="prodDic" value="" placeholder="DIC">
+                <input type="number" id="prodEne" value="" placeholder="ENE">
+                <input type="number" id="prodFeb" value="" placeholder="FEB">
+                <input type="number" id="prodTotal" class="readonly-field" readonly value="0" style="max-width:65px;" placeholder="Total">
+                <input type="number" id="prodLB" class="readonly-field" readonly value="0.00" step="0.01" style="max-width:65px;" placeholder="PROM">
+            </div>
+            <div class="inline-metrics">
+                <div class="metric"><span>Total</span><span id="totalProdDisplay">0</span></div>
+                <div class="metric"><span>PROMEDIO</span><span id="lbProdDisplay">0.00</span></div>
             </div>
         </div>
-    </section>
 
-    <!-- Data aplicada a medios Section -->
-    <section id="medios">
-        <div class="container">
-            <div class="section-title">
-                <h2>Data aplicada a medios</h2>
-            </div>
-            
-            <div class="media-container">
-                <div>
-                    <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.8rem;">Datos que transforman la industria mediática</h3>
-                    <p>Aplicamos técnicas avanzadas de análisis de datos para entender audiencias, optimizar contenidos y medir el impacto de las estrategias de comunicación.</p>
-                    <p style="margin-top: 15px;">Nuestro enfoque permite a medios de comunicación, agencias y creadores de contenido tomar decisiones basadas en datos concretos.</p>
+        <!-- CUOTAS -->
+        <div class="result-box">
+            <h4>🎯 Cuotas · objetivo semanalizado</h4>
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div style="min-width: 100px;">
+                    <label>Días efectivos</label>
+                    <input type="number" id="diasEfectivos" value="21" min="1" style="width:80px;">
                 </div>
-                
-                <div>
-                    <ul class="media-list">
-                        <li><strong>Análisis de audiencias:</strong> Segmentación y comprensión del comportamiento de los consumidores de medios.</li>
-                        <li><strong>Optimización de contenido:</strong> Identificación de temas y formatos con mayor potencial de engagement.</li>
-                        <li><strong>Medición de impacto:</strong> Evaluación del retorno de inversión en campañas y estrategias de comunicación.</li>
-                        <li><strong>Predicción de tendencias:</strong> Anticipación de temas virales y cambios en las preferencias del público.</li>
-                        <li><strong>Personalización:</strong> Desarrollo de recomendadores de contenido adaptados a perfiles de usuario.</li>
-                    </ul>
-                </div>
+                <div class="metric"><span>Mensual</span><span id="cuotaMensual">0</span></div>
+                <div class="metric"><span>Diaria</span><span id="cuotaDiaria">0.00</span></div>
             </div>
+            <small>* Cuota mensual = (Impulsaciones por colaborador) + (LB producto)</small>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-logo">
-                    <div class="logo-main">RDCR DataLab</div>
-                    <div class="logo-sub">Transformando datos en conocimiento</div>
-                    <p style="margin-top: 20px; color: #ccc;">Laboratorio especializado en análisis, visualización y aplicaciones de datos para la toma de decisiones estratégicas.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Enlaces rápidos</h3>
-                    <ul>
-                        <li><a href="#analisis">Análisis</a></li>
-                        <li><a href="#visualizaciones">Visualizaciones</a></li>
-                        <li><a href="#proyectos">Proyectos</a></li>
-                        <li><a href="#medios">Data aplicada a medios</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-contact">
-                    <h3>Contacto</h3>
-                    <p style="margin-bottom: 10px; color: #ccc;"><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@rdcrdatalab.com</p>
-                    <p style="margin-bottom: 10px; color: #ccc;"><i class="fas fa-phone" style="margin-right: 10px;"></i> +34 912 345 678</p>
-                    <p style="color: #ccc;"><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Madrid, España</p>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 RDCR DataLab. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+        <button class="btn-send" onclick="enviarCalculos()" id="btnCalculos">
+            <span></span> GUARDAR ANÁLISIS
+        </button>
+    </div>
 
-    <!-- Botón flotante para subir -->
-    <button class="floating-btn-up" id="upBtn">
-        <i class="fas fa-arrow-up"></i>
-        <span class="tooltip">Subir al inicio</span>
-    </button>
+    <!-- Mensajes -->
+    <div id="messageBox" class="message-box"></div>
+    <div class="footer">© 2026 · Analítica Estratégica · RDCR DATALAB</div>
+</div>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            mainNav.classList.toggle('active');
-            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+<script>
+    // LISTA COMPLETA DE PDV (81)
+    const pdvList = [
+        "ECO ANDINATEL OTAVALO", "ECO ANTONIO ANTE SAN ROQUE", "ECO ATUNTAQUI 2", "ECO ATUNTAQUI CENTRAL",
+        "ECO ATUNTAQUI LUIS LEORO", "ECO ATUNTAQUI PICHINCHA", "ECO BOLIVAR ATUNTAQUI", "ECO CARCHI BOLIVAR",
+        "ECO CARCHI HUACA", "ECO CENTRAL SAN GABRIEL", "ECO CLINICA IBARRA", "ECO COTACACHI LAS LOMAS",
+        "ECO COTACACHI MERCADO PRINCIPAL", "ECO COTACACHI QUIROGA", "ECO CRUZ ROJA OTAVALO", "ECO EL ANGEL",
+        "ECO EL ANGEL PARQUE CENTRAL", "ECO EL CISNE", "ECO GONZALEZ SUAREZ COTACACHI", "ECO HOSP SAN VICENTE DE PAUL",
+        "ECO IBARRA 10 DE AGOSTO", "ECO IBARRA 13 DE ABRIL", "ECO IBARRA AJAVI", "ECO IBARRA AV JAIME ROLDOS",
+        "ECO IBARRA BOLA AMARILLA", "ECO IBARRA CARANQUI", "ECO IBARRA CRISTOBAL DE TROYA", "ECO IBARRA EL CARMEN",
+        "ECO IBARRA EL RETORNO", "ECO IBARRA EUGENIO ESPEJO", "ECO IBARRA FRAY VACAS", "ECO IBARRA GALO PLAZA",
+        "ECO IBARRA HOSPITAL METROPOLITANO", "ECO IBARRA HUERTOS FAMILIARES", "ECO IBARRA INGLESA", "ECO IBARRA JUAN DE VELASCO",
+        "ECO IBARRA LA CANDELARIA", "ECO IBARRA LA MERCED", "ECO IBARRA LA VICTORIA", "ECO IBARRA LUIS VARGAS TORRES",
+        "ECO IBARRA MARIANO ACOSTA", "ECO IBARRA MERCADO AMAZONAS", "ECO IBARRA OBELISCO", "ECO IBARRA PARIS",
+        "ECO IBARRA PARQUE LA MERCED", "ECO IBARRA PILANQUI", "ECO IBARRA PRIORATO", "ECO IBARRA RAFAEL SANCHEZ",
+        "ECO IBARRA SANTA MARIANITA", "ECO IBARRA SANTA MONICA", "ECO IBARRA SUDAMERICANA", "ECO IBARRA TEODORO GOMEZ",
+        "ECO IMBABURA ANDRADE MARIN", "ECO JULIO ANDRADE", "ECO MIRA", "ECO MODERNA", "ECO OBISPO MOSQUERA",
+        "ECO OTAVALO", "ECO OTAVALO 31 DE OCTUBRE", "ECO OTAVALO AV ATAHUALPA", "ECO OTAVALO BOLIVAR",
+        "ECO OTAVALO COPACABANA", "ECO OTAVALO LOS CORAZAS", "ECO OTAVALO LUIS CISNEROS", "ECO OTAVALO MODESTO JARAMILLO",
+        "ECO OTAVALO SAN PABLO", "ECO OTAVALO SUCRE", "ECO PIMAMPIRO", "ECO PIMAMPIRO PAQUISHA",
+        "ECO SAN ANTONIO DE IBARRA", "ECO SAN GABRIEL", "ECO SANCHEZ Y CIFUENTES", "ECO TULCAN ANDRES BELLO",
+        "ECO TULCAN LUCIANO CORAL", "ECO TULCAN PARQUE AYORA", "ECO TULCAN ROBERTO GRIJALVA", "ECO TULCAN RUIZ",
+        "ECO TULCAN SUCRE", "ECO URCUQUI", "ECO VEINTIMILLA TULCAN", "MEDI IBARRA MARIANO ACOSTA"
+    ];
+
+    function llenarSelects() {
+        const selectReg = document.getElementById('pdv');
+        const selectCalc = document.getElementById('pdvCalculos');
+        selectReg.innerHTML = '<option value="">-- Seleccione PDV --</option>';
+        selectCalc.innerHTML = '<option value="">-- No especificar --</option>';
+        pdvList.forEach(pdv => {
+            let optionReg = document.createElement('option');
+            optionReg.value = pdv;
+            optionReg.textContent = pdv;
+            selectReg.appendChild(optionReg);
+            let optionCalc = document.createElement('option');
+            optionCalc.value = pdv;
+            optionCalc.textContent = pdv;
+            selectCalc.appendChild(optionCalc);
         });
-        
-        // Close mobile menu when clicking a link
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mainNav.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Botón para subir al inicio
-        const upBtn = document.getElementById('upBtn');
-        
-        // Mostrar/ocultar botón de subir según el scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                upBtn.classList.add('visible');
-            } else {
-                upBtn.classList.remove('visible');
+    }
+
+    function cambiarPestana(pestana) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        if (pestana === 'registro') {
+            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.getElementById('pestanaRegistro').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.getElementById('pestanaCalculos').classList.add('active');
+            calcularTodo();
+        }
+        ocultarMensaje();
+    }
+
+    function calcularTodo() {
+        const dic = parseFloat(document.getElementById('ventasDic').value) || 0;
+        const ene = parseFloat(document.getElementById('ventasEne').value) || 0;
+        const feb = parseFloat(document.getElementById('ventasFeb').value) || 0;
+        let colab = parseInt(document.getElementById('numColaboradores').value);
+        if (isNaN(colab) || colab <= 0) colab = 1;
+
+        const total = dic + ene + feb;
+        const lb = total / 3;                
+        const impuls = lb * 0.3;              
+        const impXCol = impuls / colab;        
+
+        document.getElementById('totalTransacciones').innerText = Math.round(total);
+        document.getElementById('lineaBaseTransacciones').innerText = Math.round(lb);
+        document.getElementById('impulsacionesEfectivas').innerText = Math.round(impuls);
+        document.getElementById('impXColaborador').innerText = Math.round(impXCol);
+
+        const pDic = parseFloat(document.getElementById('prodDic').value) || 0;
+        const pEne = parseFloat(document.getElementById('prodEne').value) || 0;
+        const pFeb = parseFloat(document.getElementById('prodFeb').value) || 0;
+        const pTotal = pDic + pEne + pFeb;
+        const pLB = pTotal / 3;
+
+        document.getElementById('prodTotal').value = pTotal;
+        document.getElementById('prodLB').value = pLB.toFixed(2);
+        document.getElementById('totalProdDisplay').innerText = pTotal;
+        document.getElementById('lbProdDisplay').innerText = pLB.toFixed(2);
+
+        const dias = parseInt(document.getElementById('diasEfectivos').value) || 1;
+        const cuotaMens = impXCol + pLB;
+        const cuotaDia = cuotaMens / dias;
+
+        document.getElementById('cuotaMensual').innerText = Math.round(cuotaMens);
+        document.getElementById('cuotaDiaria').innerText = cuotaDia.toFixed(2);
+    }
+
+    // Listeners para cálculos automáticos
+    document.getElementById('ventasDic').addEventListener('input', calcularTodo);
+    document.getElementById('ventasEne').addEventListener('input', calcularTodo);
+    document.getElementById('ventasFeb').addEventListener('input', calcularTodo);
+    document.getElementById('numColaboradores').addEventListener('input', calcularTodo);
+    document.getElementById('prodDic').addEventListener('input', calcularTodo);
+    document.getElementById('prodEne').addEventListener('input', calcularTodo);
+    document.getElementById('prodFeb').addEventListener('input', calcularTodo);
+    document.getElementById('diasEfectivos').addEventListener('input', calcularTodo);
+
+    async function enviarRegistroPDV() {
+        const pdv = document.getElementById('pdv').value.trim();
+        const colaborador = document.getElementById('colaborador').value.trim();
+        let codigo = document.getElementById('codigo').value.trim();
+        const nombreProducto = document.getElementById('nombreProducto').value.trim();
+        const ventaSemanal = document.getElementById('ventaSemanal').value.trim();
+
+        if (!pdv) return mostrarMensaje('⚠️ Selecciona un PDV', 'error');
+        if (!colaborador) return mostrarMensaje('⚠️ Ingresa el nombre del colaborador', 'error');
+        if (!codigo) return mostrarMensaje('⚠️ Ingresa el código del producto', 'error');
+        if (!nombreProducto) return mostrarMensaje('⚠️ Ingresa el nombre del producto', 'error');
+        if (!ventaSemanal) return mostrarMensaje('⚠️ Ingresa la venta semanal (unidades)', 'error');
+        if (parseFloat(ventaSemanal) <= 0) return mostrarMensaje('⚠️ La venta semanal debe ser mayor a 0', 'error');
+
+        if (!codigo.startsWith("'")) codigo = "'" + codigo;
+
+        await enviarDatos({
+            tipo: 'registro',
+            pdv, 
+            colaborador, 
+            codigo, 
+            nombreProducto, 
+            ventaSemanal,          // campo semanal
+            fecha: new Date().toLocaleDateString('es-EC'),
+            hora: new Date().toLocaleTimeString('es-EC', { hour12: false })
+        }, 'btnRegistro', 'registro');
+    }
+
+    async function enviarCalculos() {
+        const pdv = document.getElementById('pdvCalculos').value.trim() || "No especificado";
+        const datos = {
+            tipo: 'calculos',
+            pdv,
+            diciembre: document.getElementById('ventasDic').value,
+            enero: document.getElementById('ventasEne').value,
+            febrero: document.getElementById('ventasFeb').value,
+            totalTransacciones: document.getElementById('totalTransacciones').innerText,
+            lineaBaseTransacciones: document.getElementById('lineaBaseTransacciones').innerText,
+            impulsacionesEfectivas: document.getElementById('impulsacionesEfectivas').innerText,
+            impXColaborador: document.getElementById('impXColaborador').innerText,
+            numeroColaboradores: document.getElementById('numColaboradores').value,
+            productoNombre: document.getElementById('productoNombre').value.trim() || "Producto genérico",
+            ventasProducto: JSON.stringify({
+                dic: document.getElementById('prodDic').value,
+                ene: document.getElementById('prodEne').value,
+                feb: document.getElementById('prodFeb').value
+            }),
+            totalProducto: document.getElementById('prodTotal').value,
+            lineaBaseProducto: document.getElementById('prodLB').value,
+            diasEfectivos: document.getElementById('diasEfectivos').value,
+            cuotaMensual: document.getElementById('cuotaMensual').innerText,
+            cuotaDiaria: document.getElementById('cuotaDiaria').innerText,
+            fecha: new Date().toLocaleDateString('es-EC'),
+            hora: new Date().toLocaleTimeString('es-EC', { hour12: false })
+        };
+        await enviarDatos(datos, 'btnCalculos', 'calculos');
+    }
+
+    async function enviarDatos(datos, botonId, tipoForm) {
+        const btn = document.getElementById(botonId);
+        const textoOriginal = btn.innerHTML;
+        btn.innerHTML = '<span class="loading"></span> Guardando...';
+        btn.disabled = true;
+        mostrarMensaje('📤 Enviando información...', 'info');
+
+        try {
+            const formData = new URLSearchParams();
+            for (let key in datos) {
+                formData.append(key, datos[key]);
             }
-        });
-        
-        // Función para subir al inicio
-        upBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+
+            await fetch('https://script.google.com/macros/s/AKfycbwzjiNZpWIX6U6czpbcJy6WbtDyKE62QsQFh8Zj_E2PHGA3osmYihip7Vh7XZxEL6N9/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
             });
-        });
-        
-        // Efecto de ripple en el botón de subir
-        upBtn.addEventListener('click', function(e) {
-            // Crear efecto de ripple
-            const ripple = document.createElement('span');
-            const rect = upBtn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.7);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-                width: ${size}px;
-                height: ${size}px;
-                top: ${y}px;
-                left: ${x}px;
-                pointer-events: none;
-            `;
-            
-            upBtn.appendChild(ripple);
-            
-            // Eliminar el elemento después de la animación
+
+            mostrarMensaje('✅ Guardado correctamente (venta semanal registrada)', 'success');
             setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-        
-        // Añadir estilo para la animación ripple
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+                if (tipoForm === 'registro') {
+                    document.getElementById('pdv').value = '';
+                    document.getElementById('colaborador').value = '';
+                    document.getElementById('codigo').value = '';
+                    document.getElementById('nombreProducto').value = '';
+                    document.getElementById('ventaSemanal').value = '';
                 }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Efecto hover sutil para el botón de atrás en header
-        const backBtnHeader = document.getElementById('backBtnHeader');
-        backBtnHeader.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-50%) translateX(-5px)';
-        });
-        
-        backBtnHeader.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(-50%)';
-        });
-        
-        // Asegurar que el botón "Atrás" redirija a la página correcta
-        backBtnHeader.addEventListener('click', function(e) {
-            // Ya está configurado como enlace, no es necesario código adicional
-            console.log('Redirigiendo a RDCR Sound...');
-        });
-    </script>
+                ocultarMensaje();
+            }, 1700);
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje('❌ Error de conexión. Revisa internet', 'error');
+        } finally {
+            btn.innerHTML = textoOriginal;
+            btn.disabled = false;
+        }
+    }
+
+    function mostrarMensaje(texto, tipo) {
+        const msg = document.getElementById('messageBox');
+        msg.textContent = texto;
+        msg.className = 'message-box ' + tipo;
+    }
+    function ocultarMensaje() {
+        const msg = document.getElementById('messageBox');
+        msg.textContent = '';
+        msg.className = 'message-box';
+    }
+
+    window.onload = function() {
+        llenarSelects();
+        calcularTodo();
+        // Aseguramos que el input de venta semanal tenga el placeholder actualizado
+        const ventaInput = document.getElementById('ventaSemanal');
+        if (ventaInput) ventaInput.placeholder = "Ej: 250 (unidades/semana)";
+    };
+</script>
 </body>
 </html>
-<script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"34b5b0b5f26441b49b5bcebc58ac1199"})});</script>
